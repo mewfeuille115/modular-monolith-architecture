@@ -1,6 +1,4 @@
-﻿using Evently.Common.Application.Clock;
-using Evently.Common.Infrastructure.Clock;
-using Evently.Common.Presentation.Endpoints;
+﻿using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.Domain.Events;
@@ -13,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Evently.Modules.Events.Infrastructure;
 
@@ -31,8 +28,6 @@ public static class EventsModule
 	private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 	{
 		string databaseConnectionString = configuration.GetConnectionString("Database")!;
-
-		services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
 
 		services.AddDbContext<EventsDbContext>(options =>
 			options
