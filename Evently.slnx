@@ -19,12 +19,20 @@
     <Project Path="src/Evently.Modules.Events.Domain/Evently.Modules.Events.Domain.csproj" Id="c372e1a5-7f30-43de-a4f3-7d1367113cd3" />
     <Project Path="src/Evently.Modules.Events.Infrastructure/Evently.Modules.Events.Infrastructure.csproj" Id="f29a7778-7463-454f-bb13-8afabfa7b705" />
     <Project Path="src/Evently.Modules.Events.Presentation/Evently.Modules.Events.Presentation.csproj" Id="141de351-476f-4f23-af67-8c7ce9c28f76" />
+    <Project Path="src/Evently.Modules.Events.PublicApi/Evently.Modules.Events.PublicApi.csproj" Id="11b69f3e-b532-42fb-afd8-6daa93a9a48b" />
+  </Folder>
+  <Folder Name="/src/Modules/Ticketing/">
+    <Project Path="src/Evently.Modules.Ticketing.Application/Evently.Modules.Ticketing.Application.csproj" Id="bdf7071c-3150-4131-8716-5e881a3edaa5" />
+    <Project Path="src/Evently.Modules.Ticketing.Domain/Evently.Modules.Ticketing.Domain.csproj" Id="89c3c0b2-d433-496a-b589-6adfabf118af" />
+    <Project Path="src/Evently.Modules.Ticketing.Infrastructure/Evently.Modules.Ticketing.Infrastructure.csproj" Id="e211a05f-bfd0-4117-80ef-15ccbd43d2d4" />
+    <Project Path="src/Evently.Modules.Ticketing.Presentation/Evently.Modules.Ticketing.Presentation.csproj" Id="1919f434-19a9-4b22-90a5-630ac545390d" />
   </Folder>
   <Folder Name="/src/Modules/Users/">
     <Project Path="src/Evently.Modules.Users.Application/Evently.Modules.Users.Application.csproj" Id="226a18b4-d235-4a0b-86a5-e6861a2fb686" />
     <Project Path="src/Evently.Modules.Users.Domain/Evently.Modules.Users.Domain.csproj" Id="9ed7a42b-a8b2-430f-8044-289ed6f1a4b7" />
     <Project Path="src/Evently.Modules.Users.Infrastructure/Evently.Modules.Users.Infrastructure.csproj" Id="a67348df-eb1a-48e5-aeb6-20c585943f21" />
     <Project Path="src/Evently.Modules.Users.Presentation/Evently.Modules.Users.Presentation.csproj" Id="777a9dc1-11d2-4b92-9cd5-6856d2e7247d" />
+    <Project Path="src/Evently.Modules.Users.PublicApi/Evently.Modules.Users.PublicApi.csproj" Id="ccc6dff9-3758-4cf6-813c-249deddc9037" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
