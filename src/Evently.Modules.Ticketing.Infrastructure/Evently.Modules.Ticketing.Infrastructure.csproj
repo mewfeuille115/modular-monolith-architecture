@@ -2,6 +2,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Evently.Common.Infrastructure\Evently.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Evently.Modules.Ticketing.Presentation\Evently.Modules.Ticketing.Presentation.csproj" />
-    <ProjectReference Include="..\Evently.Modules.Ticketing.PublicApi\Evently.Modules.Ticketing.PublicApi.csproj" />
   </ItemGroup>
 </Project>
