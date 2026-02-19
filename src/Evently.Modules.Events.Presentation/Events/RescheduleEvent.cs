@@ -20,13 +20,13 @@ internal sealed class RescheduleEvent : IEndpoint
 
 			return result.Match(Results.NoContent, Common.Presentation.ApiResults.ApiResults.Problem);
 		})
+		.RequireAuthorization()
 		.WithTags(Tags.Events);
 	}
 
 	internal sealed class Request
 	{
 		public DateTime StartsAtUtc { get; init; }
-
 		public DateTime? EndsAtUtc { get; init; }
 	}
 }

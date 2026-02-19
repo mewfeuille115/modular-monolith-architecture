@@ -25,6 +25,7 @@ internal sealed class CreateEvent : IEndpoint
 
 			return result.Match(Results.Ok, Common.Presentation.ApiResults.ApiResults.Problem);
 		})
+		.RequireAuthorization()
 		.WithTags(Tags.Events);
 	}
 }
@@ -32,14 +33,9 @@ internal sealed class CreateEvent : IEndpoint
 internal sealed class Request
 {
 	public Guid CategoryId { get; init; }
-
 	public string Title { get; init; }
-
 	public string Description { get; init; }
-
 	public string Location { get; init; }
-
 	public DateTime StartsAtUtc { get; init; }
-
 	public DateTime? EndsAtUtc { get; init; }
 }
