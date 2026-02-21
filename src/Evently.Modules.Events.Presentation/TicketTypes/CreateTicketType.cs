@@ -24,20 +24,16 @@ internal sealed class CreateTicketType : IEndpoint
 
 			return result.Match(Results.Ok, ApiResults.Problem);
 		})
-		.RequireAuthorization()
+		.RequireAuthorization(Permissions.ModifyTicketTypes)
 		.WithTags(Tags.TicketTypes);
 	}
 
 	internal sealed class Request
 	{
 		public Guid EventId { get; init; }
-
 		public string Name { get; init; }
-
 		public decimal Price { get; init; }
-
 		public string Currency { get; init; }
-
 		public decimal Quantity { get; init; }
 	}
 }

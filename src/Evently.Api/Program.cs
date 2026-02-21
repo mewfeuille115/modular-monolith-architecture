@@ -3,6 +3,7 @@ using Evently.Api.Middleware;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
 using Evently.Common.Presentation.Endpoints;
+using Evently.Modules.Attendance.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
 using Evently.Modules.Ticketing.Infrastructure;
 using Evently.Modules.Users.Infrastructure;
@@ -24,6 +25,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddApplication([
+	Evently.Modules.Attendance.Application.AssemblyReference.Assembly,
 	Evently.Modules.Events.Application.AssemblyReferences.Assembly,
 	Evently.Modules.Users.Application.AssemblyReferences.Assembly,
 	Evently.Modules.Ticketing.Application.AssemblyReferences.Assembly,
@@ -37,13 +39,14 @@ builder.Services.AddInfrastructure(
 	databaseConnectionString,
 	redisConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["events", "users", "ticketing"]);
+builder.Configuration.AddModuleConfiguration(["attendance", "events", "users", "ticketing"]);
 
 builder.Services.AddHealthChecks()
 	.AddNpgSql(databaseConnectionString)
 	.AddRedis(redisConnectionString)
 	.AddUrlGroup(new Uri(builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!), HttpMethod.Get, "keycloak");
 
+builder.Services.AddAttendanceModule(builder.Configuration);
 builder.Services.AddEventsModule(builder.Configuration);
 builder.Services.AddUsersModule(builder.Configuration);
 builder.Services.AddTicketingModule(builder.Configuration);
