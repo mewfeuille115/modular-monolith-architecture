@@ -15,6 +15,5 @@ public sealed class EventlyException : Exception
 	}
 
 	public string RequestName { get; }
-
 	public Error? Error { get; }
 }

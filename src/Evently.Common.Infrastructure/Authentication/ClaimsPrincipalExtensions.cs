@@ -25,6 +25,6 @@ public static class ClaimsPrincipalExtensions
 		IEnumerable<Claim> permissionClaims = principal?.FindAll(CustomClaims.Permission) ??
 											  throw new EventlyException("Permissions are unavailable");
 
-		return permissionClaims.Select(c => c.Value).ToHashSet();
+		return [.. permissionClaims.Select(c => c.Value)];
 	}
 }

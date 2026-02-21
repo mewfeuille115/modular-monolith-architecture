@@ -1,6 +1,6 @@
 ﻿using Evently.Common.Domain;
-using Evently.Common.Presentation.ApiResults;
 using Evently.Common.Presentation.Endpoints;
+using Evently.Common.Presentation.Results;
 using Evently.Modules.Events.Application.TicketTypes.UpdateTicketTypePrice;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +17,7 @@ internal sealed class ChangeTicketTypePrice : IEndpoint
 		{
 			Result result = await sender.Send(new UpdateTicketTypePriceCommand(id, request.Price));
 
-			return result.Match(Results.NoContent, Common.Presentation.ApiResults.ApiResults.Problem);
+			return result.Match(Results.NoContent, ApiResults.Problem);
 		})
 		.RequireAuthorization()
 		.WithTags(Tags.TicketTypes);

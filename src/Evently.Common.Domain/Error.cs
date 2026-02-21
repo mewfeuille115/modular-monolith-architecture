@@ -16,9 +16,7 @@ public record Error
 	}
 
 	public string Code { get; }
-
 	public string Description { get; }
-
 	public ErrorType Type { get; }
 
 	public static Error Failure(string code, string description) =>
