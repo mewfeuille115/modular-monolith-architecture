@@ -26,9 +26,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplication([
 	Evently.Modules.Attendance.Application.AssemblyReference.Assembly,
-	Evently.Modules.Events.Application.AssemblyReferences.Assembly,
-	Evently.Modules.Users.Application.AssemblyReferences.Assembly,
-	Evently.Modules.Ticketing.Application.AssemblyReferences.Assembly,
+	Evently.Modules.Events.Application.AssemblyReference.Assembly,
+	Evently.Modules.Users.Application.AssemblyReference.Assembly,
+	Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
 ]);
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;

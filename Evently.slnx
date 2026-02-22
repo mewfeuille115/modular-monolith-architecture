@@ -3,6 +3,7 @@
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
   </Folder>
+  <Folder Name="/src/" />
   <Folder Name="/src/API/">
     <Project Path="src/API/Evently.Api/Evently.Api.csproj" Id="22e5da24-1b82-4827-afa7-912847ba6a26" />
   </Folder>
@@ -12,6 +13,7 @@
     <Project Path="src/Common/Evently.Common.Infrastructure/Evently.Common.Infrastructure.csproj" Id="75ee89fc-192c-4278-bc68-702d40ac1912" />
     <Project Path="src/Common/Evently.Common.Presentation/Evently.Common.Presentation.csproj" Id="803cb5ca-90a9-4f8c-90f1-6fcfb25fc5ef" />
   </Folder>
+  <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Attendance/">
     <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Application/Evently.Modules.Attendance.Application.csproj" Id="a86371f7-316b-41b2-9d9e-07b12f71c685" />
     <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Domain/Evently.Modules.Attendance.Domain.csproj" Id="259d443c-704e-4ba2-af5e-b2e889125941" />
@@ -39,6 +41,12 @@
     <Project Path="src/Modules/Users/Evently.Modules.Users.Infrastructure/Evently.Modules.Users.Infrastructure.csproj" Id="a67348df-eb1a-48e5-aeb6-20c585943f21" />
     <Project Path="src/Modules/Users/Evently.Modules.Users.IntegrationEvents/Evently.Modules.Users.IntegrationEvents.csproj" Id="256063eb-1d8a-4dcf-b2b1-f2347360deb4" />
     <Project Path="src/Modules/Users/Evently.Modules.Users.Presentation/Evently.Modules.Users.Presentation.csproj" Id="777a9dc1-11d2-4b92-9cd5-6856d2e7247d" />
+  </Folder>
+  <Folder Name="/src/Modules/Users/test/">
+    <Project Path="src/Modules/Users/Evently.Modules.Users.ArchitectureTests/Evently.Modules.Users.ArchitectureTests.csproj" Id="10325f11-6c7c-4b82-9102-43a13a081425" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Evently.ArchitectureTests/Evently.ArchitectureTests.csproj" Id="d95d2d2c-90f5-4216-8766-ab5b28548eb7" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
