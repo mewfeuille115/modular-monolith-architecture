@@ -3,44 +3,42 @@
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
   </Folder>
-  <Folder Name="/src/" />
   <Folder Name="/src/API/">
-    <Project Path="src/Evently.Api/Evently.Api.csproj" Id="22e5da24-1b82-4827-afa7-912847ba6a26" />
+    <Project Path="src/API/Evently.Api/Evently.Api.csproj" Id="22e5da24-1b82-4827-afa7-912847ba6a26" />
   </Folder>
   <Folder Name="/src/Common/">
-    <Project Path="src/Evently.Common.Application/Evently.Common.Application.csproj" Id="97fa7741-deb6-4f79-bb27-03e3e80025b8" />
-    <Project Path="src/Evently.Common.Domain/Evently.Common.Domain.csproj" Id="4168512f-e0e4-49f4-aedb-68af9a9a398c" />
-    <Project Path="src/Evently.Common.Infrastructure/Evently.Common.Infrastructure.csproj" Id="75ee89fc-192c-4278-bc68-702d40ac1912" />
-    <Project Path="src/Evently.Common.Presentation/Evently.Common.Presentation.csproj" Id="803cb5ca-90a9-4f8c-90f1-6fcfb25fc5ef" />
+    <Project Path="src/Common/Evently.Common.Application/Evently.Common.Application.csproj" Id="97fa7741-deb6-4f79-bb27-03e3e80025b8" />
+    <Project Path="src/Common/Evently.Common.Domain/Evently.Common.Domain.csproj" Id="4168512f-e0e4-49f4-aedb-68af9a9a398c" />
+    <Project Path="src/Common/Evently.Common.Infrastructure/Evently.Common.Infrastructure.csproj" Id="75ee89fc-192c-4278-bc68-702d40ac1912" />
+    <Project Path="src/Common/Evently.Common.Presentation/Evently.Common.Presentation.csproj" Id="803cb5ca-90a9-4f8c-90f1-6fcfb25fc5ef" />
   </Folder>
-  <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Attendance/">
-    <Project Path="src/Evently.Modules.Attendance.Application/Evently.Modules.Attendance.Application.csproj" Id="a86371f7-316b-41b2-9d9e-07b12f71c685" />
-    <Project Path="src/Evently.Modules.Attendance.Domain/Evently.Modules.Attendance.Domain.csproj" Id="259d443c-704e-4ba2-af5e-b2e889125941" />
-    <Project Path="src/Evently.Modules.Attendance.Infrastructure/Evently.Modules.Attendance.Infrastructure.csproj" Id="ac0f44c8-0cb5-44a7-84e2-06faf70d7bc2" />
-    <Project Path="src/Evently.Modules.Attendance.IntegrationEvents/Evently.Modules.Attendance.IntegrationEvents.csproj" Id="b32e53d2-0e22-4192-a85b-4efc7c701066" />
-    <Project Path="src/Evently.Modules.Attendance.Presentation/Evently.Modules.Attendance.Presentation.csproj" Id="d276d395-7960-49c3-889f-fa5f02d23354" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Application/Evently.Modules.Attendance.Application.csproj" Id="a86371f7-316b-41b2-9d9e-07b12f71c685" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Domain/Evently.Modules.Attendance.Domain.csproj" Id="259d443c-704e-4ba2-af5e-b2e889125941" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Infrastructure/Evently.Modules.Attendance.Infrastructure.csproj" Id="ac0f44c8-0cb5-44a7-84e2-06faf70d7bc2" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.IntegrationEvents/Evently.Modules.Attendance.IntegrationEvents.csproj" Id="b32e53d2-0e22-4192-a85b-4efc7c701066" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.Presentation/Evently.Modules.Attendance.Presentation.csproj" Id="d276d395-7960-49c3-889f-fa5f02d23354" />
   </Folder>
   <Folder Name="/src/Modules/Events/">
-    <Project Path="src/Evently.Modules.Events.Application/Evently.Modules.Events.Application.csproj" Id="6958c563-0c88-4d03-a0f0-fef8544e9572" />
-    <Project Path="src/Evently.Modules.Events.Domain/Evently.Modules.Events.Domain.csproj" Id="c372e1a5-7f30-43de-a4f3-7d1367113cd3" />
-    <Project Path="src/Evently.Modules.Events.Infrastructure/Evently.Modules.Events.Infrastructure.csproj" Id="f29a7778-7463-454f-bb13-8afabfa7b705" />
-    <Project Path="src/Evently.Modules.Events.IntegrationEvents/Evently.Modules.Events.IntegrationEvents.csproj" Id="2a7c88cc-c951-4415-b701-001a25673236" />
-    <Project Path="src/Evently.Modules.Events.Presentation/Evently.Modules.Events.Presentation.csproj" Id="141de351-476f-4f23-af67-8c7ce9c28f76" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.Application/Evently.Modules.Events.Application.csproj" Id="6958c563-0c88-4d03-a0f0-fef8544e9572" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.Domain/Evently.Modules.Events.Domain.csproj" Id="c372e1a5-7f30-43de-a4f3-7d1367113cd3" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.Infrastructure/Evently.Modules.Events.Infrastructure.csproj" Id="f29a7778-7463-454f-bb13-8afabfa7b705" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.IntegrationEvents/Evently.Modules.Events.IntegrationEvents.csproj" Id="2a7c88cc-c951-4415-b701-001a25673236" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.Presentation/Evently.Modules.Events.Presentation.csproj" Id="141de351-476f-4f23-af67-8c7ce9c28f76" />
   </Folder>
   <Folder Name="/src/Modules/Ticketing/">
-    <Project Path="src/Evently.Modules.Ticketing.Application/Evently.Modules.Ticketing.Application.csproj" Id="bdf7071c-3150-4131-8716-5e881a3edaa5" />
-    <Project Path="src/Evently.Modules.Ticketing.Domain/Evently.Modules.Ticketing.Domain.csproj" Id="89c3c0b2-d433-496a-b589-6adfabf118af" />
-    <Project Path="src/Evently.Modules.Ticketing.Infrastructure/Evently.Modules.Ticketing.Infrastructure.csproj" Id="e211a05f-bfd0-4117-80ef-15ccbd43d2d4" />
-    <Project Path="src/Evently.Modules.Ticketing.IntegrationEvents/Evently.Modules.Ticketing.IntegrationEvents.csproj" Id="4d922988-e4d8-42c1-8cff-914fe0c9a0af" />
-    <Project Path="src/Evently.Modules.Ticketing.Presentation/Evently.Modules.Ticketing.Presentation.csproj" Id="1919f434-19a9-4b22-90a5-630ac545390d" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.Application/Evently.Modules.Ticketing.Application.csproj" Id="bdf7071c-3150-4131-8716-5e881a3edaa5" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.Domain/Evently.Modules.Ticketing.Domain.csproj" Id="89c3c0b2-d433-496a-b589-6adfabf118af" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.Infrastructure/Evently.Modules.Ticketing.Infrastructure.csproj" Id="e211a05f-bfd0-4117-80ef-15ccbd43d2d4" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.IntegrationEvents/Evently.Modules.Ticketing.IntegrationEvents.csproj" Id="4d922988-e4d8-42c1-8cff-914fe0c9a0af" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.Presentation/Evently.Modules.Ticketing.Presentation.csproj" Id="1919f434-19a9-4b22-90a5-630ac545390d" />
   </Folder>
   <Folder Name="/src/Modules/Users/">
-    <Project Path="src/Evently.Modules.Users.Application/Evently.Modules.Users.Application.csproj" Id="226a18b4-d235-4a0b-86a5-e6861a2fb686" />
-    <Project Path="src/Evently.Modules.Users.Domain/Evently.Modules.Users.Domain.csproj" Id="9ed7a42b-a8b2-430f-8044-289ed6f1a4b7" />
-    <Project Path="src/Evently.Modules.Users.Infrastructure/Evently.Modules.Users.Infrastructure.csproj" Id="a67348df-eb1a-48e5-aeb6-20c585943f21" />
-    <Project Path="src/Evently.Modules.Users.IntegrationEvents/Evently.Modules.Users.IntegrationEvents.csproj" Id="256063eb-1d8a-4dcf-b2b1-f2347360deb4" />
-    <Project Path="src/Evently.Modules.Users.Presentation/Evently.Modules.Users.Presentation.csproj" Id="777a9dc1-11d2-4b92-9cd5-6856d2e7247d" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.Application/Evently.Modules.Users.Application.csproj" Id="226a18b4-d235-4a0b-86a5-e6861a2fb686" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.Domain/Evently.Modules.Users.Domain.csproj" Id="9ed7a42b-a8b2-430f-8044-289ed6f1a4b7" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.Infrastructure/Evently.Modules.Users.Infrastructure.csproj" Id="a67348df-eb1a-48e5-aeb6-20c585943f21" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.IntegrationEvents/Evently.Modules.Users.IntegrationEvents.csproj" Id="256063eb-1d8a-4dcf-b2b1-f2347360deb4" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.Presentation/Evently.Modules.Users.Presentation.csproj" Id="777a9dc1-11d2-4b92-9cd5-6856d2e7247d" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
