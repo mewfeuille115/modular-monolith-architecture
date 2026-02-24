@@ -14,6 +14,8 @@ public class DomainTests : BaseTest
 		Types
 			.InAssembly(DomainAssembly)
 			.That()
+			.ImplementInterface(typeof(IDomainEvent))
+			.Or()
 			.Inherit(typeof(DomainEvent))
 			.Should()
 			.BeSealed()
@@ -27,6 +29,8 @@ public class DomainTests : BaseTest
 		Types
 			.InAssembly(DomainAssembly)
 			.That()
+			.ImplementInterface(typeof(IDomainEvent))
+			.Or()
 			.Inherit(typeof(DomainEvent))
 			.Should()
 			.HaveNameEndingWith("DomainEvent")

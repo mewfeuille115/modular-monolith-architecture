@@ -19,12 +19,12 @@ internal sealed class GetCategoriesQueryHandler(
 
 		const string sql =
 			$"""
-             SELECT
-                 id AS {nameof(CategoryResponse.Id)},
-                 name AS {nameof(CategoryResponse.Name)},
-                 is_archived AS {nameof(CategoryResponse.IsArchived)}
-             FROM events.categories
-             """;
+			SELECT
+				id AS {nameof(CategoryResponse.Id)},
+				name AS {nameof(CategoryResponse.Name)},
+				is_archived AS {nameof(CategoryResponse.IsArchived)}
+			FROM events.categories
+			""";
 
 		List<CategoryResponse> categories = (await connection.QueryAsync<CategoryResponse>(sql, request)).AsList();
 

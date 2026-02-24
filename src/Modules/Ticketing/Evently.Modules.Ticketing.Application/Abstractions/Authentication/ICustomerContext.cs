@@ -2,5 +2,5 @@
 
 public interface ICustomerContext
 {
-    Guid CustomerId { get; }
+	Guid CustomerId { get; }
 }

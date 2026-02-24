@@ -10,6 +10,10 @@ using Evently.Modules.Attendance.Infrastructure.Authentication;
 using Evently.Modules.Attendance.Infrastructure.Database;
 using Evently.Modules.Attendance.Infrastructure.Events;
 using Evently.Modules.Attendance.Infrastructure.Tickets;
+using Evently.Modules.Attendance.Presentation.Attendees;
+using Evently.Modules.Attendance.Presentation.Events;
+using Evently.Modules.Attendance.Presentation.Tickets;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +30,14 @@ public static class AttendanceModule
 		services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
 		return services;
+	}
+
+	public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+	{
+		registrationConfigurator.AddConsumer<EventPublishedIntegrationEventConsumer>();
+		registrationConfigurator.AddConsumer<TicketIssuedIntegrationEventConsumer>();
+		registrationConfigurator.AddConsumer<UserRegisteredIntegrationEventConsumer>();
+		registrationConfigurator.AddConsumer<UserProfileUpdatedIntegrationEventConsumer>();
 	}
 
 	private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)

@@ -2,6 +2,7 @@
 using Evently.Api.Middleware;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
+using Evently.Common.Infrastructure.Configuration;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Attendance.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
@@ -19,10 +20,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-	options.CustomSchemaIds(t => t.FullName?.Replace("+", "."));
-});
+builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddApplication([
 	Evently.Modules.Attendance.Application.AssemblyReference.Assembly,
@@ -31,20 +29,25 @@ builder.Services.AddApplication([
 	Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
 ]);
 
-string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
-string redisConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+string databaseConnectionString = builder.Configuration.GetConnectionStringOrThrow("Database");
+string redisConnectionString = builder.Configuration.GetConnectionStringOrThrow("Cache");
 
 builder.Services.AddInfrastructure(
-	[TicketingModule.ConfigureConsumers],
+	[
+		AttendanceModule.ConfigureConsumers,
+		TicketingModule.ConfigureConsumers,
+	],
 	databaseConnectionString,
 	redisConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["attendance", "events", "users", "ticketing"]);
+Uri keyCloakHealthUrl = builder.Configuration.GetKeyCloakHealthUrl();
 
 builder.Services.AddHealthChecks()
 	.AddNpgSql(databaseConnectionString)
 	.AddRedis(redisConnectionString)
-	.AddUrlGroup(new Uri(builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!), HttpMethod.Get, "keycloak");
+	.AddUrlGroup(keyCloakHealthUrl);
+
+builder.Configuration.AddModuleConfiguration(["attendance", "events", "users", "ticketing"]);
 
 builder.Services.AddAttendanceModule(builder.Configuration);
 builder.Services.AddEventsModule(builder.Configuration);
