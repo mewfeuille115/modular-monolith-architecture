@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using Evently.Common.Infrastructure.Outbox;
 using Evently.Modules.Ticketing.Application.Abstractions.Data;
 using Evently.Modules.Ticketing.Domain.Customers;
 using Evently.Modules.Ticketing.Domain.Events;
@@ -28,6 +29,8 @@ public sealed class TicketingDbContext(DbContextOptions<TicketingDbContext> opti
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.HasDefaultSchema(Schemas.Ticketing);
+
+		modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
 
 		modelBuilder.ApplyConfiguration(new CustomerConfiguration());
 		modelBuilder.ApplyConfiguration(new EventConfiguration());

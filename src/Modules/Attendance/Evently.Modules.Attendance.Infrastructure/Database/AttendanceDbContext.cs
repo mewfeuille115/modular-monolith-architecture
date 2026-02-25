@@ -1,4 +1,5 @@
-﻿using Evently.Modules.Attendance.Application.Abstractions.Data;
+﻿using Evently.Common.Infrastructure.Outbox;
+using Evently.Modules.Attendance.Application.Abstractions.Data;
 using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Attendance.Domain.Events;
 using Evently.Modules.Attendance.Domain.Tickets;
@@ -18,6 +19,8 @@ public sealed class AttendanceDbContext(DbContextOptions<AttendanceDbContext> op
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.HasDefaultSchema(Schemas.Attendance);
+
+		modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
 
 		modelBuilder.ApplyConfiguration(new AttendeeConfiguration());
 		modelBuilder.ApplyConfiguration(new EventConfiguration());
