@@ -11,9 +11,11 @@ namespace Evently.Modules.Ticketing.Application.Orders.CreateOrder;
 
 internal sealed class OrderCreatedDomainEventHandler(
 		ISender sender, IEventBus eventBus
-	) : IDomainEventHandler<OrderCreatedDomainEvent>
+	) : DomainEventHandler<OrderCreatedDomainEvent>
 {
-	public async Task Handle(OrderCreatedDomainEvent notification, CancellationToken cancellationToken)
+	public override async Task Handle(
+		OrderCreatedDomainEvent notification,
+		CancellationToken cancellationToken = default)
 	{
 		Result<OrderResponse> result = await sender.Send(new GetOrderQuery(notification.OrderId), cancellationToken);
 
@@ -31,15 +33,15 @@ internal sealed class OrderCreatedDomainEventHandler(
 				result.Value.TotalPrice,
 				result.Value.CreatedAtUtc,
 				[.. result.Value.OrderItems.Select(oi => new OrderItemModel
-				{
-					Id = oi.OrderItemId,
-					OrderId = result.Value.Id,
-					TicketTypeId = oi.TicketTypeId,
-					Price = oi.Price,
-					UnitPrice = oi.UnitPrice,
-					Currency = oi.Currency,
-					Quantity = oi.Quantity,
-				})]
+					{
+						Id = oi.OrderItemId,
+						OrderId = result.Value.Id,
+						TicketTypeId = oi.TicketTypeId,
+						Price = oi.Price,
+						UnitPrice = oi.UnitPrice,
+						Currency = oi.Currency,
+						Quantity = oi.Quantity,
+					})]
 			),
 			cancellationToken);
 	}

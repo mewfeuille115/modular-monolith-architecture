@@ -7,9 +7,11 @@ namespace Evently.Modules.Users.Application.Users.UpdateUser;
 
 internal sealed class UserProfileUpdatedDomainEventHandler(
 		IEventBus eventBus
-	) : IDomainEventHandler<UserProfileUpdatedDomainEvent>
+	) : DomainEventHandler<UserProfileUpdatedDomainEvent>
 {
-	public async Task Handle(UserProfileUpdatedDomainEvent domainEvent, CancellationToken cancellationToken)
+	public override async Task Handle(
+		UserProfileUpdatedDomainEvent domainEvent,
+		CancellationToken cancellationToken = default)
 	{
 		await eventBus.PublishAsync(
 			new UserProfileUpdatedIntegrationEvent(

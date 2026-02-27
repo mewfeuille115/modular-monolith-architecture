@@ -1,4 +1,5 @@
-﻿using Evently.Common.Infrastructure.Outbox;
+﻿using Evently.Common.Application.Messaging;
+using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Evently.Modules.Events.Infrastructure;
 
@@ -20,6 +22,8 @@ public static class EventsModule
 {
 	public static IServiceCollection AddEventsModule(this IServiceCollection services, IConfiguration configuration)
 	{
+		services.AddDomainEventHandlers();
+
 		services.AddInfrastructure(configuration);
 
 		services.AddEndpoints(Presentation.AssemblyReference.Assembly);
@@ -48,5 +52,28 @@ public static class EventsModule
 
 		services.Configure<OutboxOptions>(configuration.GetSection("Events:Outbox"));
 		services.ConfigureOptions<ConfigureProcessOutboxJob>();
+	}
+
+	private static void AddDomainEventHandlers(this IServiceCollection services)
+	{
+		Type[] domainEventHandlers = [.. Application.AssemblyReference.Assembly
+			.GetTypes()
+			.Where(t => t.IsAssignableTo(typeof(IDomainEventHandler)))
+		];
+
+		foreach (Type domainEventHandler in domainEventHandlers)
+		{
+			services.TryAddScoped(domainEventHandler);
+
+			Type domainEvent = domainEventHandler
+				.GetInterfaces()
+				.Single(i => i.IsGenericType)
+				.GetGenericArguments()
+				.Single();
+
+			Type closedIdempotentHandler = typeof(IdempotentDomainEventHandler<>).MakeGenericType(domainEvent);
+
+			services.Decorate(domainEventHandler, closedIdempotentHandler);
+		}
 	}
 }

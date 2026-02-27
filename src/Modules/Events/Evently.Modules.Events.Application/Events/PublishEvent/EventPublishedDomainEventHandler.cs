@@ -12,9 +12,11 @@ namespace Evently.Modules.Events.Application.Events.PublishEvent;
 internal sealed class EventPublishedDomainEventHandler(
 		ISender sender,
 		IEventBus eventBus
-	) : IDomainEventHandler<EventPublishedDomainEvent>
+	) : DomainEventHandler<EventPublishedDomainEvent>
 {
-	public async Task Handle(EventPublishedDomainEvent domainEvent, CancellationToken cancellationToken)
+	public override async Task Handle(
+		EventPublishedDomainEvent domainEvent,
+		CancellationToken cancellationToken = default)
 	{
 		Result<EventResponse> result = await sender.Send(new GetEventQuery(domainEvent.EventId), cancellationToken);
 
@@ -33,15 +35,16 @@ internal sealed class EventPublishedDomainEventHandler(
 				result.Value.Location,
 				result.Value.StartsAtUtc,
 				result.Value.EndsAtUtc,
-				result.Value.TicketTypes.Select(t => new TicketTypeModel
-				{
-					Id = t.TicketTypeId,
-					EventId = result.Value.Id,
-					Name = t.Name,
-					Price = t.Price,
-					Currency = t.Currency,
-					Quantity = t.Quantity
-				}).ToList()),
+				[.. result.Value.TicketTypes.Select(t => new TicketTypeModel
+					{
+						Id = t.TicketTypeId,
+						EventId = result.Value.Id,
+						Name = t.Name,
+						Price = t.Price,
+						Currency = t.Currency,
+						Quantity = t.Quantity
+					})]
+			),
 			cancellationToken);
 	}
 }
