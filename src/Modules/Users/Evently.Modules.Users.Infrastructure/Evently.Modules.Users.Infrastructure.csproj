@@ -6,6 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Evently.IntegrationTests" />
     <InternalsVisibleTo Include="Evently.Modules.Users.IntegrationTests" />
   </ItemGroup>
 

@@ -58,6 +58,7 @@
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/Evently.ArchitectureTests/Evently.ArchitectureTests.csproj" Id="d95d2d2c-90f5-4216-8766-ab5b28548eb7" />
+    <Project Path="test/Evently.IntegrationTests/Evently.IntegrationTests.csproj" Id="8108e51f-222b-44db-98cd-f9e106527dab" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
