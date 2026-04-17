@@ -1,0 +1,40 @@
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: "10.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore Evently.slnx
+
+      - name: Build
+        run: dotnet build Evently.slnx --configuration Release --no-restore 
+
+      - name: Tests
+        run: dotnet test Evently.slnx --configuration Release --no-restore --no-build
+
+      - name: Publish
+        run: dotnet publish Evently.slnx --configuration Release --no-restore --no-build
+    
