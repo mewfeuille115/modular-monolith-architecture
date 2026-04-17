@@ -63,6 +63,15 @@ public class BaseIntegrationTest : IDisposable
 
 	public void Dispose()
 	{
-		_scope.Dispose();
+		Dispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+	protected virtual void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			_scope.Dispose();
+		}
 	}
 }

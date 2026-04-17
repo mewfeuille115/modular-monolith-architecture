@@ -23,6 +23,8 @@
   </Folder>
   <Folder Name="/src/Modules/Attendance/test/">
     <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.ArchitectureTests/Evently.Modules.Attendance.ArchitectureTests.csproj" Id="c7bd456a-b3bb-444f-b8b8-d2cee5c1e935" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.IntegrationTests/Evently.Modules.Attendance.IntegrationTests.csproj" Id="e5b82aed-5f78-441e-8669-1afb8d0edc52" />
+    <Project Path="src/Modules/Attendance/Evently.Modules.Attendance.UnitTests/Evently.Modules.Attendance.UnitTests.csproj" Id="cafc8cb4-6032-441b-ad32-a798ebce25a7" />
   </Folder>
   <Folder Name="/src/Modules/Events/">
     <Project Path="src/Modules/Events/Evently.Modules.Events.Application/Evently.Modules.Events.Application.csproj" Id="6958c563-0c88-4d03-a0f0-fef8544e9572" />
@@ -33,6 +35,7 @@
   </Folder>
   <Folder Name="/src/Modules/Events/test/">
     <Project Path="src/Modules/Events/Evently.Modules.Events.ArchitectureTests/Evently.Modules.Events.ArchitectureTests.csproj" Id="0eb73e37-f59f-4b04-9bc9-170d2ef238b3" />
+    <Project Path="src/Modules/Events/Evently.Modules.Events.IntegrationTests/Evently.Modules.Events.IntegrationTests.csproj" Id="5bc21de3-1b68-4e69-9a99-e385774200e6" />
     <Project Path="src/Modules/Events/Evently.Modules.Events.UnitTests/Evently.Modules.Events.UnitTests.csproj" Id="39a963c8-5b2d-4897-9e93-83e07caf890d" />
   </Folder>
   <Folder Name="/src/Modules/Ticketing/">
@@ -44,6 +47,8 @@
   </Folder>
   <Folder Name="/src/Modules/Ticketing/test/">
     <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.ArchitectureTests/Evently.Modules.Ticketing.ArchitectureTests.csproj" Id="68aeb003-c2a0-4ad2-8c3f-50c6e827d468" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.IntegrationTests/Evently.Modules.Ticketing.IntegrationTests.csproj" Id="cd536a9b-d260-4df3-85dd-5377f71aa12a" />
+    <Project Path="src/Modules/Ticketing/Evently.Modules.Ticketing.UnitTests/Evently.Modules.Ticketing.UnitTests.csproj" Id="3ff0c8e8-fea8-4118-b755-474c3a56162b" />
   </Folder>
   <Folder Name="/src/Modules/Users/">
     <Project Path="src/Modules/Users/Evently.Modules.Users.Application/Evently.Modules.Users.Application.csproj" Id="226a18b4-d235-4a0b-86a5-e6861a2fb686" />
@@ -55,6 +60,7 @@
   <Folder Name="/src/Modules/Users/test/">
     <Project Path="src/Modules/Users/Evently.Modules.Users.ArchitectureTests/Evently.Modules.Users.ArchitectureTests.csproj" Id="10325f11-6c7c-4b82-9102-43a13a081425" />
     <Project Path="src/Modules/Users/Evently.Modules.Users.IntegrationTests/Evently.Modules.Users.IntegrationTests.csproj" Id="2159719b-9075-4340-be64-f21fdfcade37" />
+    <Project Path="src/Modules/Users/Evently.Modules.Users.UnitTests/Evently.Modules.Users.UnitTests.csproj" Id="1a957435-f704-44fa-9781-f22a9b585dbc" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/Evently.ArchitectureTests/Evently.ArchitectureTests.csproj" Id="d95d2d2c-90f5-4216-8766-ab5b28548eb7" />

@@ -7,6 +7,19 @@ namespace Evently.Modules.Attendance.ArchitectureTests.Presentation;
 public class PresentationTests : BaseTest
 {
 	[Fact]
+	public void IntegrationEventHandler_Should_NotBePublic()
+	{
+		Types
+			.InAssembly(PresentationAssembly)
+			.That()
+			.ImplementInterface(typeof(IConsumer<>))
+			.Should()
+			.NotBePublic()
+			.GetResult()
+			.ShouldBeSuccessful();
+	}
+
+	[Fact]
 	public void IntegrationEventConsumer_Should_BeSealed()
 	{
 		Types
