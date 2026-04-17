@@ -1,4 +1,5 @@
-﻿using Evently.Common.Domain;
+﻿using Bogus;
+using Evently.Common.Domain;
 using Evently.Modules.Users.Application.Users.RegisterUser;
 using Evently.Modules.Users.Application.Users.UpdateUser;
 using Evently.Modules.Users.Domain.Users;
@@ -14,12 +15,16 @@ public class UpdateUserTests : BaseIntegrationTest
 	{
 	}
 
-	public static readonly TheoryData<Guid, string, string> InvalidCommands =
-	[
-		new(Guid.Empty, Faker.Name.FirstName(), Faker.Name.LastName()),
-		new(Guid.NewGuid(), "", Faker.Name.LastName()),
-		new(Guid.NewGuid(), Faker.Name.FirstName(), ""),
-	];
+	public static TheoryData<Guid, string, string> InvalidCommands()
+	{
+		var faker = new Faker { Random = new Randomizer(0) };
+		return new TheoryData<Guid, string, string>
+		{
+			{ Guid.Empty, faker.Name.FirstName(), faker.Name.LastName() },
+			{ faker.Random.Guid(), string.Empty, faker.Name.LastName() },
+			{ faker.Random.Guid(), faker.Name.FirstName(), string.Empty },
+		};
+	}
 
 	[Theory]
 	[MemberData(nameof(InvalidCommands))]

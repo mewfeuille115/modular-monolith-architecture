@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using Bogus;
 using Evently.Modules.Users.IntegrationTests.Abstractions;
 using Evently.Modules.Users.Presentation.Users;
 using FluentAssertions;
@@ -13,15 +14,18 @@ public class RegisterUserTests : BaseIntegrationTest
 	{
 	}
 
-	public static readonly TheoryData<string, string, string, string> InvalidRequests = new()
+	public static TheoryData<string, string, string, string> InvalidRequests()
 	{
-		{ string.Empty, Faker.Internet.Password(), Faker.Name.FirstName(), Faker.Name.LastName() },
-		{ Faker.Internet.Email(), string.Empty, Faker.Name.FirstName(), Faker.Name.LastName() },
-		{ Faker.Internet.Email(), "12345", Faker.Name.FirstName(), Faker.Name.LastName() },
-		{ Faker.Internet.Email(), Faker.Internet.Password(), string.Empty, Faker.Name.LastName() },
-		{ Faker.Internet.Email(), Faker.Internet.Password(), Faker.Name.FirstName(), string.Empty },
-	};
-
+		var faker = new Faker { Random = new Randomizer(0) };
+		return new TheoryData<string, string, string, string>
+		{
+			{ string.Empty, faker.Internet.Password(), faker.Name.FirstName(), faker.Name.LastName() },
+			{ faker.Internet.Email(), string.Empty, faker.Name.FirstName(), faker.Name.LastName() },
+			{ faker.Internet.Email(), "12345", faker.Name.FirstName(), faker.Name.LastName() },
+			{ faker.Internet.Email(), faker.Internet.Password(), string.Empty, faker.Name.LastName() },
+			{ faker.Internet.Email(), faker.Internet.Password(), faker.Name.FirstName(), string.Empty },
+		};
+	}
 
 	[Theory]
 	[MemberData(nameof(InvalidRequests))]
