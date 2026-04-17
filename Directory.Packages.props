@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+    <PackageVersion Include="AspNetCore.HealthChecks.Rabbitmq" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Redis" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Uris" Version="9.0.0" />
@@ -14,6 +15,7 @@
     <PackageVersion Include="FluentAssertions" Version="8.9.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageVersion Include="MassTransit.Abstractions" Version="8.5.9" />
+    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.9" />
     <PackageVersion Include="MassTransit.Redis" Version="8.5.9" />
     <PackageVersion Include="MassTransit" Version="8.5.9" />
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />

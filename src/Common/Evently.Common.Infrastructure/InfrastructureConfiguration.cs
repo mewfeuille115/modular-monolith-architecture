@@ -7,6 +7,7 @@ using Evently.Common.Infrastructure.Authorization;
 using Evently.Common.Infrastructure.Caching;
 using Evently.Common.Infrastructure.Clock;
 using Evently.Common.Infrastructure.Data;
+using Evently.Common.Infrastructure.EventBus;
 using Evently.Common.Infrastructure.Outbox;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,8 @@ public static class InfrastructureConfiguration
 	public static IServiceCollection AddInfrastructure(
 		this IServiceCollection services,
 		string serviceName,
-		Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
+		Action<IRegistrationConfigurator, string>[] moduleConfigureConsumers,
+		RabbitMqSettings rabbitMqSettings,
 		string databaseConnectionString,
 		string redisConnectionString)
 	{
@@ -70,15 +72,22 @@ public static class InfrastructureConfiguration
 
 		services.AddMassTransit(configure =>
 		{
-			foreach (Action<IRegistrationConfigurator> configureConsumer in moduleConfigureConsumers)
+			string instanceId = serviceName.ToLowerInvariant().Replace('.', '-');
+			foreach (Action<IRegistrationConfigurator, string> configureConsumer in moduleConfigureConsumers)
 			{
-				configureConsumer(configure);
+				configureConsumer(configure, instanceId);
 			}
 
 			configure.SetKebabCaseEndpointNameFormatter();
 
-			configure.UsingInMemory((context, cfg) =>
+			configure.UsingRabbitMq((context, cfg) =>
 			{
+				cfg.Host(new Uri(rabbitMqSettings.Host), h =>
+				{
+					h.Username(rabbitMqSettings.Username);
+					h.Password(rabbitMqSettings.Password);
+				});
+
 				cfg.ConfigureEndpoints(context);
 			});
 		});
