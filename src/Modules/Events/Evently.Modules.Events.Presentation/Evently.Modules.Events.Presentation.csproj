@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">  
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="8.5.8" />
+    <PackageReference Include="MassTransit" />
   </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Evently.Common.Presentation\Evently.Common.Presentation.csproj" />
