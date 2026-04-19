@@ -273,6 +273,9 @@ dotnet_diagnostic.CA1307.severity = none
 # CA1308: Normalize strings to uppercase
 dotnet_diagnostic.CA1308.severity = none
 
+# CA1515: Consider making public types internal
+dotnet_diagnostic.CA1515.severity = none
+
 # CA1700: Do not name enum values 'Reserved'
 dotnet_diagnostic.CA1700.severity = none
 
@@ -343,6 +346,9 @@ dotnet_diagnostic.CS8603.severity = none
 dotnet_diagnostic.CS8618.severity = none
 
 # IDE Code Analyzers rules
+
+# IDE0032: Use auto property
+dotnet_diagnostic.IDE0032.severity = none
 
 # IDE0046: Convert to conditional expression
 dotnet_diagnostic.IDE0046.severity = none
