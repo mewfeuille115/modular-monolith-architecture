@@ -1,10 +1,10 @@
-﻿using Evently.Common.Application.Authorization;
+using AwesomeAssertions;
+using Evently.Common.Application.Authorization;
 using Evently.Common.Domain;
 using Evently.Modules.Users.Application.Users.GetUserPermissions;
 using Evently.Modules.Users.Application.Users.RegisterUser;
 using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Users.IntegrationTests.Users;
 

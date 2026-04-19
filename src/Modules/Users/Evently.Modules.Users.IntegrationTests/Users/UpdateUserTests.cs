@@ -1,10 +1,10 @@
-﻿using Bogus;
+using AwesomeAssertions;
+using Bogus;
 using Evently.Common.Domain;
 using Evently.Modules.Users.Application.Users.RegisterUser;
 using Evently.Modules.Users.Application.Users.UpdateUser;
 using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Users.IntegrationTests.Users;
 

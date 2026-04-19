@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using AwesomeAssertions;
 using Evently.Modules.Users.Application.Users.GetUser;
 using Evently.Modules.Users.IntegrationTests.Abstractions;
 using Evently.Modules.Users.Presentation.Users;
-using FluentAssertions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Evently.Modules.Users.IntegrationTests.Users;

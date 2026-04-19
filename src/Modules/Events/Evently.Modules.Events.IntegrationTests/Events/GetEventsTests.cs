@@ -1,7 +1,7 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Events.Application.Events.GetEvents;
 using Evently.Modules.Events.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Events.IntegrationTests.Events;
 

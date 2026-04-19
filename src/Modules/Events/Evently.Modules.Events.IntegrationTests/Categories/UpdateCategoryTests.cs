@@ -1,9 +1,9 @@
-﻿using Bogus;
+using AwesomeAssertions;
+using Bogus;
 using Evently.Common.Domain;
 using Evently.Modules.Events.Application.Categories.UpdateCategory;
 using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Events.IntegrationTests.Categories;
 

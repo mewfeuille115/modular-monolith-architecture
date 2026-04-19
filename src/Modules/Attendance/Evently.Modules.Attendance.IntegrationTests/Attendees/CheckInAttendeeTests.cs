@@ -1,9 +1,9 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Attendance.Application.Attendees.CheckInAttendee;
 using Evently.Modules.Attendance.Domain.Attendees;
 using Evently.Modules.Attendance.Domain.Tickets;
 using Evently.Modules.Attendance.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Attendance.IntegrationTests.Attendees;
 

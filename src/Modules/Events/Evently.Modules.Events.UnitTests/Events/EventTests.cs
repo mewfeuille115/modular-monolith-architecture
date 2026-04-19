@@ -1,8 +1,8 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.Domain.Events;
 using Evently.Modules.Events.UnitTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Events.UnitTests.Events;
 

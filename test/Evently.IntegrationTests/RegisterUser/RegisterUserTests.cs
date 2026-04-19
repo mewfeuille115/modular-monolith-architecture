@@ -1,8 +1,8 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.IntegrationTests.Abstractions;
 using Evently.Modules.Attendance.Application.Attendees.GetAttendee;
 using Evently.Modules.Users.Application.Users.RegisterUser;
-using FluentAssertions;
 using Xunit;
 
 namespace Evently.IntegrationTests.RegisterUser;

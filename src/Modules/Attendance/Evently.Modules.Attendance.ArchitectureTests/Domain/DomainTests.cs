@@ -1,7 +1,7 @@
-﻿using System.Reflection;
+using System.Reflection;
+using AwesomeAssertions;
 using Evently.Common.Domain;
 using Evently.Modules.Attendance.ArchitectureTests.Abstractions;
-using FluentAssertions;
 using NetArchTest.Rules;
 
 namespace Evently.Modules.Attendance.ArchitectureTests.Domain;

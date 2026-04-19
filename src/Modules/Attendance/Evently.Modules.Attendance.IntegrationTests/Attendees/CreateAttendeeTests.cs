@@ -1,7 +1,7 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Attendance.Application.Attendees.CreateAttendee;
 using Evently.Modules.Attendance.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Attendance.IntegrationTests.Attendees;
 

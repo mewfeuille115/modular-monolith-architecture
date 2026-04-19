@@ -1,9 +1,9 @@
-﻿using Bogus;
+using AwesomeAssertions;
+using Bogus;
 using Evently.Common.Domain;
 using Evently.Modules.Attendance.Application.Attendees.CreateAttendee;
 using Evently.Modules.Attendance.Application.Events.CreateEvent;
 using Evently.Modules.Attendance.Application.Tickets.CreateTicket;
-using FluentAssertions;
 using MediatR;
 
 namespace Evently.Modules.Attendance.IntegrationTests.Abstractions;

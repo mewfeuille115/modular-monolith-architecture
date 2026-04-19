@@ -1,7 +1,7 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Application.Customers.CreateCustomer;
 using Evently.Modules.Ticketing.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Ticketing.IntegrationTests.Customers;
 

@@ -1,7 +1,7 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Domain.Events;
 using Evently.Modules.Ticketing.UnitTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Ticketing.UnitTests.Events;
 

@@ -1,8 +1,8 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Events.Application.TicketTypes.GetTicketType;
 using Evently.Modules.Events.Domain.TicketTypes;
 using Evently.Modules.Events.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Events.IntegrationTests.TicketTypes;
 

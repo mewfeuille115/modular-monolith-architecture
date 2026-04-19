@@ -1,8 +1,8 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Application.Carts.ClearCart;
 using Evently.Modules.Ticketing.Domain.Customers;
 using Evently.Modules.Ticketing.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Ticketing.IntegrationTests.Carts;
 

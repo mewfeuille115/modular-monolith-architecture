@@ -1,8 +1,8 @@
-﻿using Evently.Common.Domain;
+using AwesomeAssertions;
+using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Domain.Customers;
 using Evently.Modules.Ticketing.Domain.Orders;
 using Evently.Modules.Ticketing.UnitTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Ticketing.UnitTests.Orders;
 

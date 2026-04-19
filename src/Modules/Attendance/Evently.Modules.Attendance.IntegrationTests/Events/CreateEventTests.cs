@@ -1,8 +1,8 @@
-﻿using Bogus;
+using AwesomeAssertions;
+using Bogus;
 using Evently.Common.Domain;
 using Evently.Modules.Attendance.Application.Events.CreateEvent;
 using Evently.Modules.Attendance.IntegrationTests.Abstractions;
-using FluentAssertions;
 
 namespace Evently.Modules.Attendance.IntegrationTests.Events;
 
