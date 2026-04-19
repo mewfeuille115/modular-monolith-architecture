@@ -8,6 +8,7 @@
   <Folder Name="/src/API/">
     <Project Path="src/API/Evently.Api/Evently.Api.csproj" Id="22e5da24-1b82-4827-afa7-912847ba6a26" />
     <Project Path="src/API/Evently.Gateway/Evently.Gateway.csproj" Id="9c298572-5220-4a7c-ae24-2b5339a0edc7" />
+    <Project Path="src/API/Evently.Ticketing.Api/Evently.Ticketing.Api.csproj" Id="9a2b7198-3e5e-45fc-9c2d-dbf70b612170" />
   </Folder>
   <Folder Name="/src/Common/">
     <Project Path="src/Common/Evently.Common.Application/Evently.Common.Application.csproj" Id="97fa7741-deb6-4f79-bb27-03e3e80025b8" />

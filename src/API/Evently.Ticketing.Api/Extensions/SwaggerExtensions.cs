@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi;
 
-namespace Evently.Api.Extensions;
+namespace Evently.Ticketing.Api.Extensions;
 
 internal static class SwaggerExtensions
 {
@@ -10,9 +10,9 @@ internal static class SwaggerExtensions
 		{
 			options.SwaggerDoc("v1", new OpenApiInfo
 			{
-				Title = "Evently API",
+				Title = "Evently Ticketing API",
 				Version = "v1",
-				Description = "Evently API built using the modular monolith architecture."
+				Description = "Evently Ticketing API built using the modular monolith architecture."
 			});
 
 			options.CustomSchemaIds(t => t.FullName?.Replace("+", "."));
