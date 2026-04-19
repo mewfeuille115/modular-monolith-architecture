@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Evently.Modules.Users.Presentation.Users;
 
-public sealed class GetUserPermissionsRequestConsumer(
+internal sealed class GetUserPermissionsRequestConsumer(
 		IPermissionService permissionService
 	) : IConsumer<GetUserPermissionsRequest>
 {
