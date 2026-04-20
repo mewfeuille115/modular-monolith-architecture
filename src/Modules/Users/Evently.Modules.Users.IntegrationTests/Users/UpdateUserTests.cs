@@ -32,7 +32,7 @@ public class UpdateUserTests : BaseIntegrationTest
 	{
 		// Act
 		var command = new UpdateUserCommand(userId, firstName, lastName);
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		// Assert
 		result.IsFailure.Should().BeTrue();
@@ -48,7 +48,7 @@ public class UpdateUserTests : BaseIntegrationTest
 		var command = new UpdateUserCommand(userId, Faker.Name.FirstName(), Faker.Name.LastName());
 
 		// Act
-		Result updateResult = await Sender.Send(command, CancellationToken.None);
+		Result updateResult = await SendCommand(command);
 
 		// Assert
 		updateResult.Error.Should().Be(UserErrors.NotFound(userId));
@@ -65,7 +65,7 @@ public class UpdateUserTests : BaseIntegrationTest
 			Faker.Name.LastName()
 		);
 
-		Result<Guid> result = await Sender.Send(registerUserCommand, CancellationToken.None);
+		Result<Guid> result = await SendCommand<RegisterUserCommand, Guid>(registerUserCommand);
 
 		Guid userId = result.Value;
 
@@ -76,7 +76,7 @@ public class UpdateUserTests : BaseIntegrationTest
 		);
 
 		// Act
-		Result updateResult = await Sender.Send(updateUSerCommand, CancellationToken.None);
+		Result updateResult = await SendCommand(updateUSerCommand);
 
 		// Assert
 		updateResult.IsSuccess.Should().BeTrue();

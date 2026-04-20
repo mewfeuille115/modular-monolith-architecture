@@ -20,7 +20,7 @@ public class GetCustomerByIdTests : BaseIntegrationTest
 		var query = new GetCustomerQuery(Guid.NewGuid());
 
 		// Act
-		Result result = await Sender.Send(query, CancellationToken.None);
+		Result result = await SendQuery<GetCustomerQuery, CustomerResponse>(query);
 
 		// Assert
 		result.Error.Should().Be(CustomerErrors.NotFound(query.CustomerId));
@@ -30,12 +30,12 @@ public class GetCustomerByIdTests : BaseIntegrationTest
 	public async Task Should_ReturnCustomer_WhenCustomerExists()
 	{
 		// Arrange
-		Guid customerId = await Sender.CreateCustomerAsync(Guid.NewGuid());
+		Guid customerId = await this.CreateCustomerAsync(Guid.NewGuid());
 
 		var query = new GetCustomerQuery(customerId);
 
 		// Act
-		Result<CustomerResponse> result = await Sender.Send(query, CancellationToken.None);
+		Result<CustomerResponse> result = await SendQuery<GetCustomerQuery, CustomerResponse>(query);
 
 		// Assert
 		result.IsSuccess.Should().BeTrue();

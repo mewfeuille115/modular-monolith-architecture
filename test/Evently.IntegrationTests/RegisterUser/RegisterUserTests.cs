@@ -24,7 +24,7 @@ public class RegisterUserTests : BaseIntegrationTest
 			Faker.Name.FirstName(),
 			Faker.Name.LastName());
 
-		Result<Guid> userResult = await Sender.Send(command, CancellationToken.None);
+		Result<Guid> userResult = await SendCommand<RegisterUserCommand, Guid>(command);
 
 		userResult.IsSuccess.Should().BeTrue();
 
@@ -35,7 +35,7 @@ public class RegisterUserTests : BaseIntegrationTest
 			{
 				var query = new GetAttendeeQuery(userResult.Value);
 
-				Result<AttendeeResponse> customerResult = await Sender.Send(query);
+				Result<AttendeeResponse> customerResult = await SendQuery<GetAttendeeQuery, AttendeeResponse>(query);
 
 				return customerResult;
 			});

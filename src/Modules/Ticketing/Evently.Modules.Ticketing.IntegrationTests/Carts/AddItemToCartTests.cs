@@ -26,7 +26,7 @@ public class AddItemToCartTests : BaseIntegrationTest
 			Faker.Random.Decimal());
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.Error.Should().Be(CustomerErrors.NotFound(command.CustomerId));
@@ -36,7 +36,7 @@ public class AddItemToCartTests : BaseIntegrationTest
 	public async Task Should_ReturnFailure_WhenTicketTypeDoesNotExist()
 	{
 		//Arrange
-		Guid customerId = await Sender.CreateCustomerAsync(Guid.NewGuid());
+		Guid customerId = await this.CreateCustomerAsync(Guid.NewGuid());
 
 		var command = new AddItemToCartCommand(
 			customerId,
@@ -44,7 +44,7 @@ public class AddItemToCartTests : BaseIntegrationTest
 			Faker.Random.Decimal());
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.Error.Should().Be(TicketTypeErrors.NotFound(command.TicketTypeId));
@@ -54,12 +54,11 @@ public class AddItemToCartTests : BaseIntegrationTest
 	public async Task Should_ReturnFailure_WhenNotEnoughQuantity()
 	{
 		//Arrange
-		Guid customerId = await Sender.CreateCustomerAsync(Guid.NewGuid());
+		Guid customerId = await this.CreateCustomerAsync(Guid.NewGuid());
 		var eventId = Guid.NewGuid();
 		var ticketTypeId = Guid.NewGuid();
 
-		await Sender.CreateEventWithTicketTypeAsync(eventId, ticketTypeId, Quantity);
-
+		await this.CreateEventWithTicketTypeAsync(eventId, ticketTypeId, Quantity);
 
 		var command = new AddItemToCartCommand(
 			customerId,
@@ -67,7 +66,7 @@ public class AddItemToCartTests : BaseIntegrationTest
 			Quantity + 1);
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.Error.Should().Be(TicketTypeErrors.NotEnoughQuantity(Quantity));
@@ -77,11 +76,11 @@ public class AddItemToCartTests : BaseIntegrationTest
 	public async Task Should_ReturnSuccess_WhenItemAddedToCart()
 	{
 		//Arrange
-		Guid customerId = await Sender.CreateCustomerAsync(Guid.NewGuid());
+		Guid customerId = await this.CreateCustomerAsync(Guid.NewGuid());
 		var eventId = Guid.NewGuid();
 		var ticketTypeId = Guid.NewGuid();
 
-		await Sender.CreateEventWithTicketTypeAsync(eventId, ticketTypeId, Quantity);
+		await this.CreateEventWithTicketTypeAsync(eventId, ticketTypeId, Quantity);
 
 		var command = new AddItemToCartCommand(
 			customerId,
@@ -89,7 +88,7 @@ public class AddItemToCartTests : BaseIntegrationTest
 			Quantity);
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.IsSuccess.Should().BeTrue();

@@ -5,12 +5,11 @@ using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Application.Tickets.GetTicket;
 using Evently.Modules.Ticketing.Domain.Tickets;
 using Evently.Modules.Ticketing.IntegrationEvents;
-using MediatR;
 
 namespace Evently.Modules.Ticketing.Application.Tickets.CreateTicketBatch;
 
 internal sealed class TicketCreatedDomainEventHandler(
-		ISender sender,
+		IQueryHandler<GetTicketQuery, TicketResponse> handler,
 		IEventBus eventBus
 	) : DomainEventHandler<TicketCreatedDomainEvent>
 {
@@ -18,7 +17,7 @@ internal sealed class TicketCreatedDomainEventHandler(
 		TicketCreatedDomainEvent domainEvent,
 		CancellationToken cancellationToken = default)
 	{
-		Result<TicketResponse> result = await sender.Send(
+		Result<TicketResponse> result = await handler.Handle(
 			new GetTicketQuery(domainEvent.TicketId),
 			cancellationToken);
 

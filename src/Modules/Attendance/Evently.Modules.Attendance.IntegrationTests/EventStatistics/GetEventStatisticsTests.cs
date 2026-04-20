@@ -20,7 +20,8 @@ public class GetEventStatisticsTests : BaseIntegrationTest
 		var query = new GetEventStatisticsQuery(Guid.NewGuid());
 
 		// Act
-		Result<EventStatisticsResponse> result = await Sender.Send(query, CancellationToken.None);
+		Result<EventStatisticsResponse> result =
+			await SendQuery<GetEventStatisticsQuery, EventStatisticsResponse>(query);
 
 		// Assert
 		result.Error.Should().Be(EventErrors.NotFound(query.EventId));

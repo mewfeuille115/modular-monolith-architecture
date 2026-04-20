@@ -1,21 +1,21 @@
 ﻿using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Exceptions;
+using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Modules.Ticketing.Application.Customers.CreateCustomer;
 using Evently.Modules.Users.IntegrationEvents;
-using MediatR;
 
 namespace Evently.Modules.Ticketing.Presentation.Customers;
 
 internal sealed class UserRegisteredIntegrationEventHandler(
-		ISender sender
+		ICommandHandler<CreateCustomerCommand> handler
 	) : IntegrationEventHandler<UserRegisteredIntegrationEvent>
 {
 	public override async Task Handle(
 		UserRegisteredIntegrationEvent integrationEvent,
 		CancellationToken cancellationToken = default)
 	{
-		Result result = await sender.Send(
+		Result result = await handler.Handle(
 			new CreateCustomerCommand(
 				integrationEvent.UserId,
 				integrationEvent.Email,

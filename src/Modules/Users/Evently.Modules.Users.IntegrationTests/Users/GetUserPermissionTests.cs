@@ -24,7 +24,8 @@ public class GetUserPermissionTests : BaseIntegrationTest
 		var query = new GetUserPermissionsQuery(identityId);
 
 		// Act
-		Result<PermissionsResponse> permissionsResult = await Sender.Send(query, CancellationToken.None);
+		Result<PermissionsResponse> permissionsResult =
+			await SendQuery<GetUserPermissionsQuery, PermissionsResponse>(query);
 
 		// Assert
 		permissionsResult.Error.Should().Be(UserErrors.NotFound(identityId));
@@ -41,14 +42,15 @@ public class GetUserPermissionTests : BaseIntegrationTest
 			Faker.Name.LastName()
 		);
 
-		Result<Guid> result = await Sender.Send(registerUserCommand, CancellationToken.None);
+		Result<Guid> result = await SendCommand<RegisterUserCommand, Guid>(registerUserCommand);
 
 		string identityId = DbContext.Users.Single(u => u.Id == result.Value).IdentityId;
 
 		var query = new GetUserPermissionsQuery(identityId);
 
 		// Act
-		Result<PermissionsResponse> permissionsResult = await Sender.Send(query, CancellationToken.None);
+		Result<PermissionsResponse> permissionsResult =
+			await SendQuery<GetUserPermissionsQuery, PermissionsResponse>(query);
 
 		// Assert
 		permissionsResult.IsSuccess.Should().BeTrue();

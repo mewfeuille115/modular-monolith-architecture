@@ -21,7 +21,7 @@ public class CreateOrderTests : BaseIntegrationTest
 		var command = new CreateOrderCommand(Guid.NewGuid());
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.Error.Should().Be(CustomerErrors.NotFound(command.CustomerId));
@@ -31,12 +31,12 @@ public class CreateOrderTests : BaseIntegrationTest
 	public async Task Should_ReturnFailure_WhenCartIsEmpty()
 	{
 		//Arrange
-		Guid customerId = await Sender.CreateCustomerAsync(Guid.NewGuid());
+		Guid customerId = await this.CreateCustomerAsync(Guid.NewGuid());
 
 		var command = new CreateOrderCommand(customerId);
 
 		//Act
-		Result result = await Sender.Send(command, CancellationToken.None);
+		Result result = await SendCommand(command);
 
 		//Assert
 		result.Error.Should().Be(CartErrors.Empty);

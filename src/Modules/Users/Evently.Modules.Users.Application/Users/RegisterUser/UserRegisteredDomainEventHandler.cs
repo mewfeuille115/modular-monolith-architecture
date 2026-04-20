@@ -5,12 +5,11 @@ using Evently.Common.Domain;
 using Evently.Modules.Users.Application.Users.GetUser;
 using Evently.Modules.Users.Domain.Users;
 using Evently.Modules.Users.IntegrationEvents;
-using MediatR;
 
 namespace Evently.Modules.Users.Application.Users.RegisterUser;
 
 internal sealed class UserRegisteredDomainEventHandler(
-		ISender sender,
+		IQueryHandler<GetUserQuery, UserResponse> handler,
 		IEventBus eventBus
 	) : DomainEventHandler<UserRegisteredDomainEvent>
 {
@@ -18,7 +17,9 @@ internal sealed class UserRegisteredDomainEventHandler(
 		UserRegisteredDomainEvent notification,
 		CancellationToken cancellationToken = default)
 	{
-		Result<UserResponse> result = await sender.Send(new GetUserQuery(notification.UserId), cancellationToken);
+		Result<UserResponse> result = await handler.Handle(
+			new GetUserQuery(notification.UserId),
+			cancellationToken);
 
 		if (result.IsFailure)
 		{

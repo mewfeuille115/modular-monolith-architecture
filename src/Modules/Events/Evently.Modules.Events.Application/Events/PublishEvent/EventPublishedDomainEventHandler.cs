@@ -5,12 +5,11 @@ using Evently.Common.Domain;
 using Evently.Modules.Events.Application.Events.GetEvent;
 using Evently.Modules.Events.Domain.Events;
 using Evently.Modules.Events.IntegrationEvents;
-using MediatR;
 
 namespace Evently.Modules.Events.Application.Events.PublishEvent;
 
 internal sealed class EventPublishedDomainEventHandler(
-		ISender sender,
+		IQueryHandler<GetEventQuery, EventResponse> handler,
 		IEventBus eventBus
 	) : DomainEventHandler<EventPublishedDomainEvent>
 {
@@ -18,7 +17,9 @@ internal sealed class EventPublishedDomainEventHandler(
 		EventPublishedDomainEvent domainEvent,
 		CancellationToken cancellationToken = default)
 	{
-		Result<EventResponse> result = await sender.Send(new GetEventQuery(domainEvent.EventId), cancellationToken);
+		Result<EventResponse> result = await handler.Handle(
+			new GetEventQuery(domainEvent.EventId),
+			cancellationToken);
 
 		if (result.IsFailure)
 		{

@@ -23,7 +23,8 @@ public class GetUserTests : BaseIntegrationTest
 		var query = new GetUserQuery(userId);
 
 		// Act
-		Result<UserResponse> userResult = await Sender.Send(query, CancellationToken.None);
+		Result<UserResponse> userResult =
+			await SendQuery<GetUserQuery, UserResponse>(query);
 
 		// Assert
 		userResult.Error.Should().Be(UserErrors.NotFound(userId));
@@ -40,13 +41,14 @@ public class GetUserTests : BaseIntegrationTest
 			Faker.Name.LastName()
 		);
 
-		Result<Guid> result = await Sender.Send(registerUserCommand, CancellationToken.None);
+		Result<Guid> result = await SendCommand<RegisterUserCommand, Guid>(registerUserCommand);
 		Guid userId = result.Value;
 
 		var query = new GetUserQuery(userId);
 
 		// Act
-		Result<UserResponse> userResult = await Sender.Send(query, CancellationToken.None);
+		Result<UserResponse> userResult =
+			await SendQuery<GetUserQuery, UserResponse>(query);
 
 		// Assert
 		userResult.IsSuccess.Should().BeTrue();

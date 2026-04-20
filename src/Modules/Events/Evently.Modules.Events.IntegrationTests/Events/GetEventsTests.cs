@@ -21,7 +21,8 @@ public class GetEventsTests : BaseIntegrationTest
 		var query = new GetEventsQuery();
 
 		// Act
-		Result<IReadOnlyCollection<EventResponse>> result = await Sender.Send(query, CancellationToken.None);
+		Result<IReadOnlyCollection<EventResponse>> result =
+			await SendQuery<GetEventsQuery, IReadOnlyCollection<EventResponse>>(query);
 
 		// Assert
 		result.Value.Should().BeEmpty();
@@ -33,15 +34,16 @@ public class GetEventsTests : BaseIntegrationTest
 		// Arrange
 		await CleanDatabaseAsync();
 
-		Guid categoryId = await Sender.CreateCategoryAsync(Faker.Music.Genre());
+		Guid categoryId = await this.CreateCategoryAsync(Faker.Music.Genre());
 
-		await Sender.CreateEventAsync(categoryId);
-		await Sender.CreateEventAsync(categoryId);
+		await this.CreateEventAsync(categoryId);
+		await this.CreateEventAsync(categoryId);
 
 		var query = new GetEventsQuery();
 
 		// Act
-		Result<IReadOnlyCollection<EventResponse>> result = await Sender.Send(query, CancellationToken.None);
+		Result<IReadOnlyCollection<EventResponse>> result =
+			await SendQuery<GetEventsQuery, IReadOnlyCollection<EventResponse>>(query);
 
 		// Assert
 		result.Value.Should().HaveCount(2);

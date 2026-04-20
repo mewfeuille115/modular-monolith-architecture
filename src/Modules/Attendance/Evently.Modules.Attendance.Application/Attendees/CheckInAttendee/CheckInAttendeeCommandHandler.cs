@@ -7,11 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Evently.Modules.Attendance.Application.Attendees.CheckInAttendee;
 
-internal sealed class CheckInAttendeeCommandCommandHandler(
+internal sealed class CheckInAttendeeCommandHandler(
 		IAttendeeRepository attendeeRepository,
 		ITicketRepository ticketRepository,
 		IUnitOfWork unitOfWork,
-		ILogger<CheckInAttendeeCommandCommandHandler> logger
+		ILogger<CheckInAttendeeCommandHandler> logger
 	) : ICommandHandler<CheckInAttendeeCommand>
 {
 	public async Task<Result> Handle(CheckInAttendeeCommand request, CancellationToken cancellationToken)
