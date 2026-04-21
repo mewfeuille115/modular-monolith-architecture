@@ -1,5 +1,5 @@
-﻿using Evently.Modules.Users.ArchitectureTests.Abstractions;
-using MassTransit;
+﻿using Evently.Common.Application.EventBus;
+using Evently.Modules.Users.ArchitectureTests.Abstractions;
 using NetArchTest.Rules;
 
 namespace Evently.Modules.Users.ArchitectureTests.Presentation;
@@ -11,7 +11,9 @@ public class PresentationTests : BaseTest
 	{
 		Types.InAssembly(PresentationAssembly)
 			.That()
-			.ImplementInterface(typeof(IConsumer<>))
+			.ImplementInterface(typeof(IIntegrationEventHandler<>))
+			.Or()
+			.Inherit(typeof(IntegrationEventHandler<>))
 			.Should()
 			.NotBePublic()
 			.GetResult()
@@ -21,10 +23,11 @@ public class PresentationTests : BaseTest
 	[Fact]
 	public void IntegrationEventHandler_Should_BeSealed()
 	{
-		Types
-			.InAssembly(PresentationAssembly)
+		Types.InAssembly(PresentationAssembly)
 			.That()
-			.ImplementInterface(typeof(IConsumer<>))
+			.ImplementInterface(typeof(IIntegrationEventHandler<>))
+			.Or()
+			.Inherit(typeof(IntegrationEventHandler<>))
 			.Should()
 			.BeSealed()
 			.GetResult()
@@ -34,12 +37,13 @@ public class PresentationTests : BaseTest
 	[Fact]
 	public void IntegrationEventHandler_ShouldHave_NameEndingWith_DomainEventHandler()
 	{
-		Types
-			.InAssembly(PresentationAssembly)
+		Types.InAssembly(PresentationAssembly)
 			.That()
-			.ImplementInterface(typeof(IConsumer<>))
+			.ImplementInterface(typeof(IIntegrationEventHandler<>))
+			.Or()
+			.Inherit(typeof(IntegrationEventHandler<>))
 			.Should()
-			.HaveNameEndingWith("Consumer")
+			.HaveNameEndingWith("IntegrationEventHandler")
 			.GetResult()
 			.ShouldBeSuccessful();
 	}

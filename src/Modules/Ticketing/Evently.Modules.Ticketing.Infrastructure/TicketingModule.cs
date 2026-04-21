@@ -3,7 +3,6 @@ using Evently.Common.Application.EventBus;
 using Evently.Common.Application.Messaging;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
-using Evently.Modules.Events.IntegrationEvents;
 using Evently.Modules.Ticketing.Application.Abstractions.Authentication;
 using Evently.Modules.Ticketing.Application.Abstractions.Data;
 using Evently.Modules.Ticketing.Application.Abstractions.Payments;
@@ -23,13 +22,12 @@ using Evently.Modules.Ticketing.Infrastructure.Orders;
 using Evently.Modules.Ticketing.Infrastructure.Outbox;
 using Evently.Modules.Ticketing.Infrastructure.Payments;
 using Evently.Modules.Ticketing.Infrastructure.Tickets;
-using Evently.Modules.Users.IntegrationEvents;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Wolverine;
 
 namespace Evently.Modules.Ticketing.Infrastructure;
 
@@ -48,18 +46,13 @@ public static class TicketingModule
 		return services;
 	}
 
-	public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator, string instanceId)
+	public static void ConfigureWolverine(WolverineOptions options)
 	{
-		registrationConfigurator.AddConsumer<IntegrationEventConsumer<EventCancellationStartedIntegrationEvent>>()
-			.Endpoint(c => c.InstanceId = instanceId);
-		registrationConfigurator.AddConsumer<IntegrationEventConsumer<EventPublishedIntegrationEvent>>()
-			.Endpoint(c => c.InstanceId = instanceId);
-		registrationConfigurator.AddConsumer<IntegrationEventConsumer<TicketTypePriceChangedIntegrationEvent>>()
-			.Endpoint(c => c.InstanceId = instanceId);
-		registrationConfigurator.AddConsumer<IntegrationEventConsumer<UserProfileUpdatedIntegrationEvent>>()
-			.Endpoint(c => c.InstanceId = instanceId);
-		registrationConfigurator.AddConsumer<IntegrationEventConsumer<UserRegisteredIntegrationEvent>>()
-			.Endpoint(c => c.InstanceId = instanceId);
+		options.Discovery.IncludeType<EventCancellationStartedIntegrationEventConsumer>();
+		options.Discovery.IncludeType<EventPublishedIntegrationEventConsumer>();
+		options.Discovery.IncludeType<TicketTypePriceChangedIntegrationEventConsumer>();
+		options.Discovery.IncludeType<UserProfileUpdatedIntegrationEventConsumer>();
+		options.Discovery.IncludeType<UserRegisteredIntegrationEventConsumer>();
 	}
 
 	private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)

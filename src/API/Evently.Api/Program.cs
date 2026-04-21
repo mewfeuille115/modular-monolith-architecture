@@ -10,9 +10,12 @@ using Evently.Modules.Attendance.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
 using Evently.Modules.Users.Infrastructure;
 using HealthChecks.UI.Client;
+using JasperFx.Resources;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using RabbitMQ.Client;
 using Serilog;
+using Wolverine;
+using Wolverine.Postgresql;
+using Wolverine.RabbitMQ;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -36,27 +39,37 @@ var rabbitMqSettings = new RabbitMqSettings(builder.Configuration.GetConnectionS
 
 builder.Services.AddInfrastructure(
 	DiagnosticsConfig.ServiceName,
-	[
-		AttendanceModule.ConfigureConsumers,
-		EventsModule.ConfigureConsumers(redisConnectionString),
-		UsersModule.ConfigureConsumers,
-	],
 	rabbitMqSettings,
 	databaseConnectionString,
 	redisConnectionString);
 
-Func<IServiceProvider, Task<IConnection>> rabbitMqConnectionFactory = async _ =>
+builder.Host.UseWolverine(options =>
 {
-	var factory = new ConnectionFactory { Uri = new Uri(rabbitMqSettings.Host) };
-	return await factory.CreateConnectionAsync();
-};
+	options.PersistMessagesWithPostgresql(databaseConnectionString);
+
+	options.UseRabbitMq(rabbitMqSettings.Host)
+		.AutoProvision()
+		.UseConventionalRouting();
+
+	options.Services.AddResourceSetupOnStartup();
+
+	options.Policies.DisableConventionalLocalRouting();
+
+	options.MultipleHandlerBehavior = MultipleHandlerBehavior.Separated;
+	options.Durability.MessageIdentity = MessageIdentity.IdAndDestination;
+	options.Durability.Mode = DurabilityMode.Solo;
+
+	AttendanceModule.ConfigureWolverine(options);
+	EventsModule.ConfigureWolverine(options);
+	UsersModule.ConfigureWolverine(options);
+});
 
 Uri keyCloakHealthUrl = builder.Configuration.GetKeyCloakHealthUrl();
 
 builder.Services.AddHealthChecks()
 	.AddNpgSql(databaseConnectionString)
 	.AddRedis(redisConnectionString)
-	.AddRabbitMQ(rabbitMqConnectionFactory)
+	.AddRabbitMQ()
 	.AddUrlGroup(keyCloakHealthUrl);
 
 builder.Configuration.AddModuleConfiguration(["attendance", "events", "users"]);

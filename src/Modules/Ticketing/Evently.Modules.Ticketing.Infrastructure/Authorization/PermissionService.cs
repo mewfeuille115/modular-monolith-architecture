@@ -2,14 +2,14 @@
 using Evently.Common.Application.Caching;
 using Evently.Common.Domain;
 using Evently.Modules.Users.IntegrationEvents;
-using MassTransit;
+using Wolverine;
 
 namespace Evently.Modules.Ticketing.Infrastructure.Authorization;
 
 internal sealed class PermissionService(
-		IRequestClient<GetUserPermissionsRequest> requestClient,
-		ICacheService cacheService
-	) : IPermissionService
+	IMessageBus messageBus,
+	ICacheService cacheService
+) : IPermissionService
 {
 	private static readonly Error NotFound = Error.NotFound(nameof(PermissionService), "The user was not found");
 	private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(5);
@@ -26,25 +26,16 @@ internal sealed class PermissionService(
 
 		var request = new GetUserPermissionsRequest(identityId);
 
-		Response<PermissionsResponse, Error> response =
-			await requestClient.GetResponse<PermissionsResponse, Error>(request);
+		PermissionsResponse? response = await messageBus.InvokeAsync<PermissionsResponse>(request);
 
-		if (response.Is(out Response<Error> errorResponse))
+		if (response is null)
 		{
-			return Result.Failure<PermissionsResponse>(errorResponse.Message);
+			return Result.Failure<PermissionsResponse>(NotFound);
 		}
 
-		if (response.Is(out Response<PermissionsResponse> permissionResponse))
-		{
-			await cacheService.SetAsync(
-				CreateCacheKey(identityId),
-				permissionResponse.Message,
-				CacheExpiration);
+		await cacheService.SetAsync(CreateCacheKey(identityId), response, CacheExpiration);
 
-			return permissionResponse.Message;
-		}
-
-		return Result.Failure<PermissionsResponse>(NotFound);
+		return response;
 	}
 
 	private static string CreateCacheKey(string identityId) => $"user-permissions:{identityId}";

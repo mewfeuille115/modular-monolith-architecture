@@ -1,26 +1,18 @@
 ﻿using Evently.Common.Application.Authorization;
 using Evently.Common.Domain;
 using Evently.Modules.Users.IntegrationEvents;
-using MassTransit;
 
 namespace Evently.Modules.Users.Presentation.Users;
 
-internal sealed class GetUserPermissionsRequestConsumer(
-		IPermissionService permissionService
-	) : IConsumer<GetUserPermissionsRequest>
+public sealed class GetUserPermissionsRequestConsumer(IPermissionService permissionService)
 {
-	public async Task Consume(ConsumeContext<GetUserPermissionsRequest> context)
+	public async Task<object> Handle(GetUserPermissionsRequest context)
 	{
 		Result<PermissionsResponse> result =
-			await permissionService.GetUserPermissionsAsync(context.Message.IdentityId);
+			await permissionService.GetUserPermissionsAsync(context.IdentityId);
 
-		if (result.IsSuccess)
-		{
-			await context.RespondAsync(result.Value);
-		}
-		else
-		{
-			await context.RespondAsync(result.Error);
-		}
+		return result.IsSuccess
+			? result.Value
+			: result.Error;
 	}
 }

@@ -4,21 +4,17 @@ using Evently.Common.Application.Data;
 using Evently.Common.Application.EventBus;
 using Evently.Common.Infrastructure.Inbox;
 using Evently.Common.Infrastructure.Serialization;
-using MassTransit;
 using Newtonsoft.Json;
 
 namespace Evently.Modules.Events.Infrastructure.Inbox;
 
-internal sealed class IntegrationEventConsumer<TIntegrationEvent>(
+public abstract class IntegrationEventConsumer<TIntegrationEvent>(
 		IDbConnectionFactory dbConnectionFactory
-	) : IConsumer<TIntegrationEvent>
-		where TIntegrationEvent : IntegrationEvent
+	) where TIntegrationEvent : IntegrationEvent
 {
-	public async Task Consume(ConsumeContext<TIntegrationEvent> context)
+	public async Task Consume(TIntegrationEvent integrationEvent)
 	{
 		await using DbConnection connection = await dbConnectionFactory.OpenConnectionAsync();
-
-		TIntegrationEvent integrationEvent = context.Message;
 
 		var inboxMessage = new InboxMessage
 		{

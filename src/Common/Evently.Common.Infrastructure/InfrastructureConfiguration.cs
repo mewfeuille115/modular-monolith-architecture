@@ -9,13 +9,13 @@ using Evently.Common.Infrastructure.Clock;
 using Evently.Common.Infrastructure.Data;
 using Evently.Common.Infrastructure.EventBus;
 using Evently.Common.Infrastructure.Outbox;
-using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Quartz;
+using RabbitMQ.Client;
 using StackExchange.Redis;
 
 namespace Evently.Common.Infrastructure;
@@ -25,7 +25,6 @@ public static class InfrastructureConfiguration
 	public static IServiceCollection AddInfrastructure(
 		this IServiceCollection services,
 		string serviceName,
-		Action<IRegistrationConfigurator, string>[] moduleConfigureConsumers,
 		RabbitMqSettings rabbitMqSettings,
 		string databaseConnectionString,
 		string redisConnectionString)
@@ -68,28 +67,15 @@ public static class InfrastructureConfiguration
 
 		services.TryAddSingleton<ICacheService, CacheService>();
 
-		services.TryAddSingleton<IEventBus, EventBus.EventBus>();
+		services.TryAddScoped<IEventBus, EventBus.EventBus>();
 
-		services.AddMassTransit(configure =>
+		services.AddSingleton<IConnection>(sp =>
 		{
-			string instanceId = serviceName.ToLowerInvariant().Replace('.', '-');
-			foreach (Action<IRegistrationConfigurator, string> configureConsumer in moduleConfigureConsumers)
+			var factory = new ConnectionFactory
 			{
-				configureConsumer(configure, instanceId);
-			}
-
-			configure.SetKebabCaseEndpointNameFormatter();
-
-			configure.UsingRabbitMq((context, cfg) =>
-			{
-				cfg.Host(new Uri(rabbitMqSettings.Host), h =>
-				{
-					h.Username(rabbitMqSettings.Username);
-					h.Password(rabbitMqSettings.Password);
-				});
-
-				cfg.ConfigureEndpoints(context);
-			});
+				Uri = new Uri(rabbitMqSettings.Host),
+			};
+			return factory.CreateConnectionAsync().GetAwaiter().GetResult();
 		});
 
 		services.AddOpenTelemetry()
@@ -102,7 +88,7 @@ public static class InfrastructureConfiguration
 					.AddEntityFrameworkCoreInstrumentation()
 					.AddRedisInstrumentation()
 					.AddNpgsql()
-					.AddSource(MassTransit.Logging.DiagnosticHeaders.DefaultListenerName);
+					.AddSource("Wolverine");
 
 				tracing.AddOtlpExporter();
 			});
