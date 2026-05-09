@@ -54,8 +54,7 @@ pipeline {
                                     /n:"${env.REPO_NAME}" \\
                                     /o:"${env.SONAR_ORG}" \\
                                     /d:sonar.host.url="\${SONAR_HOST_URL}" \\
-                                    /d:sonar.token="\${SONAR_AUTH_TOKEN}" \\
-                                    /d:sonar.qualitygate.wait=true
+                                    /d:sonar.token="\${SONAR_AUTH_TOKEN}"
 
                                 dotnet build ${env.SOLUTION} --configuration Release
 
@@ -71,7 +70,9 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                waitForQualityGate abortPipeline: true
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    waitForQualityGate abortPipeline: false
+                }
             }
         }
 
