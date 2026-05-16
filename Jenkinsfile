@@ -104,7 +104,9 @@ pipeline {
             echo 'El pipeline falló. Revisá los logs.'
         }
         always {
-            sh "docker rmi ${env.IMAGE_NAME}:${env.BUILD_NUMBER} ${env.IMAGE_NAME}:latest || true"
+            node('') {
+                sh "docker rmi ${env.IMAGE_NAME}:${env.BUILD_NUMBER} ${env.IMAGE_NAME}:latest || true"
+            }
             cleanWs()
         }
     }
