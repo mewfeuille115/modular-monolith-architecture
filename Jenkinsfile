@@ -80,10 +80,11 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
+                    cp Directory.Build.props Directory.Packages.props src/
                     docker build \
                         -t $IMAGE_NAME:$BUILD_NUMBER \
                         -t $IMAGE_NAME:latest \
-                        -f src/API/Evently.Api/Dockerfile .
+                        -f src/API/Evently.Api/Dockerfile ./src
                 '''
             }
         }
