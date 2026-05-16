@@ -80,7 +80,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                    cp Directory.Build.props Directory.Packages.props src/
+                    cp Directory.Build.props Directory.Packages.props .editorconfig src/
                     docker build \
                         -t $IMAGE_NAME:$BUILD_NUMBER \
                         -t $IMAGE_NAME:latest \
