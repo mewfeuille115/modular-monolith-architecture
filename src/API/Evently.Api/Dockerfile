@@ -7,6 +7,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Packages.props", "."]
 COPY ["API/Evently.Api/Evently.Api.csproj", "API/Evently.Api/"]
 COPY ["Modules/Attendance/Evently.Modules.Attendance.Infrastructure/Evently.Modules.Attendance.Infrastructure.csproj", "Modules/Attendance/Evently.Modules.Attendance.Infrastructure/"]
 COPY ["Common/Evently.Common.Infrastructure/Evently.Common.Infrastructure.csproj", "Common/Evently.Common.Infrastructure/"]
