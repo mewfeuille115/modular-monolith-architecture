@@ -97,17 +97,21 @@ pipeline {
                 '''
             }
         }
+
     }
 
     post {
+
         failure {
             echo 'El pipeline falló. Revisá los logs.'
         }
+
         always {
             node('') {
                 sh 'docker rmi $IMAGE_NAME:$BUILD_NUMBER $IMAGE_NAME:latest || true'
             }
             cleanWs()
         }
+
     }
 }
