@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     environment {
-        SONAR_SERVER     = 'sonarqube-server'
-        REPO_NAME        = "${env.GIT_URL.split('/').last().split('\\.').first()}"
-        DOTNET_SDK_IMAGE = 'mcr.microsoft.com/dotnet/sdk:10.0'
-        SOLUTION         = 'Evently.slnx'
-        PUBLISH_PROJECT  = 'src/API/Evently.Api/Evently.Api.csproj'
-        SONAR_ORG        = credentials('sonar-org')
+        SONAR_SERVER       = 'sonarqube-server'
+        REPO_NAME          = "${env.GIT_URL.split('/').last().split('\\.').first()}"
+        DOTNET_SDK_IMAGE   = 'mcr.microsoft.com/dotnet/sdk:10.0'
+        SOLUTION           = 'Evently.slnx'
+        SONAR_ORG          = credentials('sonar-org')
+        CONTAINER_REGISTRY = credentials('container-registry')
+        IMAGE_NAME         = "${env.CONTAINER_REGISTRY}/evently-api"
     }
 
     stages {
@@ -76,21 +77,23 @@ pipeline {
             }
         }
 
-        stage('Publish Artifact') {
-            agent {
-                docker {
-                    image "${env.DOTNET_SDK_IMAGE}"
-                    args  '-u root'
-                    reuseNode true
-                }
-            }
+        stage('Docker Build') {
             steps {
                 sh """
-                    dotnet publish ${env.PUBLISH_PROJECT} \\
-                        --configuration Release \\
-                        --output ./artifacts
+                    docker build \\
+                        -t ${env.IMAGE_NAME}:${env.BUILD_NUMBER} \\
+                        -t ${env.IMAGE_NAME}:latest \\
+                        -f src/API/Evently.Api/Dockerfile .
                 """
-                archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+            }
+        }
+
+        stage('Publish Docker Image') {
+            steps {
+                sh """
+                    docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}
+                    docker push ${env.IMAGE_NAME}:latest
+                """
             }
         }
 
@@ -98,9 +101,10 @@ pipeline {
 
     post {
         failure {
-            echo 'El pipeline falló. Revisá los logs del Quality Gate o del análisis SonarQube.'
+            echo 'El pipeline falló. Revisá los logs.'
         }
         always {
+            sh "docker rmi ${env.IMAGE_NAME}:${env.BUILD_NUMBER} ${env.IMAGE_NAME}:latest || true"
             cleanWs()
         }
     }
