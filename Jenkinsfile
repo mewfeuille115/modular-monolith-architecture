@@ -92,6 +92,8 @@ pipeline {
         stage('Publish Docker Image') {
             steps {
                 sh '''
+                    gcloud auth print-access-token \
+                        | docker login -u oauth2accesstoken --password-stdin us-central1-docker.pkg.dev
                     docker push $IMAGE_NAME:$BUILD_NUMBER
                     docker push $IMAGE_NAME:latest
                 '''
