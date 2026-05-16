@@ -79,24 +79,23 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh """
-                    docker build \\
-                        -t ${env.IMAGE_NAME}:${env.BUILD_NUMBER} \\
-                        -t ${env.IMAGE_NAME}:latest \\
-                        -f src/API/Evently.Api/Dockerfile .
-                """
+                sh '''
+                    docker build \
+                        -t $IMAGE_NAME:$BUILD_NUMBER \
+                        -t $IMAGE_NAME:latest \
+                        -f src/API/Evently.Api/Dockerfile ./src
+                '''
             }
         }
 
         stage('Publish Docker Image') {
             steps {
-                sh """
-                    docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}
-                    docker push ${env.IMAGE_NAME}:latest
-                """
+                sh '''
+                    docker push $IMAGE_NAME:$BUILD_NUMBER
+                    docker push $IMAGE_NAME:latest
+                '''
             }
         }
-
     }
 
     post {
@@ -105,7 +104,7 @@ pipeline {
         }
         always {
             node('') {
-                sh "docker rmi ${env.IMAGE_NAME}:${env.BUILD_NUMBER} ${env.IMAGE_NAME}:latest || true"
+                sh 'docker rmi $IMAGE_NAME:$BUILD_NUMBER $IMAGE_NAME:latest || true'
             }
             cleanWs()
         }
